@@ -17,12 +17,20 @@ app.use(cors())
 app.use(express.json())
 
 
+// SETUP THE MIDDLEWARE
+app.use(express.json())     //in express server, it does not accept json files by default, so use this to resolve it
+
+
+// SETUP OUR OWN ROUTERS AS MIDDLEWARE
+const userRoute = require('./routes/userRoute')
+app.use('/api', userRoute)
+
 // INITIALIZE OUR DATABASE OBJECT
 const db = require('./db')
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 // PUT THE SERVER IN LISTENING MODE
-const apiPort = 4000
+const apiPort = 8800
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`))
 
 

@@ -9,14 +9,14 @@ function authManager(){
             return res.status(401).json({
               loggedIn: false,
               user: null,
-              errorMessage: "Unauthorized",
+              errorMessage: "You're not Unauthorized",
             });
           }
     
           const verified = jwt.verify(token, process.env.JWT_SECRET);
           req.userId = verified.userId;
     
-          next();
+          next();   //go to actual router
         } catch (err) {
           console.error(err);
           return res.status(401).json({
@@ -39,14 +39,11 @@ function authManager(){
         }
       };
     
-      signToken = function (user) {
-        return jwt.sign(
-          {
-            userId: user._id,
-          },
-          process.env.JWT_SECRET
-        );
-      };
+      signToken = (userId) => {
+        return jwt.sign({
+            userId: userId
+        }, process.env.JWT_SECRET);
+    }
     
       return this;
 }

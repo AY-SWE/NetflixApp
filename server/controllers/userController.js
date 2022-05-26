@@ -2,7 +2,7 @@
 /*
     This is our back-end API. It provides all the data services
     our database needs. Note that this file contains the controller
-    functions for each endpoint.
+    functions for each endpoint for users
     
     @author Andy Yang
 */
@@ -10,75 +10,133 @@
 const User = require('../models/User')
 //const CryptoJs = require("crypto-js");
 const bcrypt = require("bcryptjs");
-const auth = require("../auth.js");
+const auth = require("../auth.js/index.js");
 
-registerUser = async (req, res) => {
-    try{
-        const { email, password, username } =
-      req.body;
+updateUser = async (req, res) => {
+    const {password} = req.body;
+    if(req.user.id === req.params.id || req.user.isAdmin){
+        const saltRounds = 10;
+        const salt = await bcrypt.genSalt(saltRounds);
+        const passwordHash = await bcrypt.hash(password, salt);
 
-      const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-    const passwordHash = await bcrypt.hash(password, salt);
-
-        const newUser = new User({
-            email,
-            passwordHash,
-            username,
-          });
-          
-        const savedUser = await newUser.save();     //mongoose will save user into our db
-        res.status(200).json({
-            success: true,
-            user: {
-                email: savedUser.email,
-                password: savedUser.password,
-                username: savedUser.username,
-            }
-        })
-    }
-    catch (err) {
-        console.error(err);
-        res.status(500).send();
-    }
-}
-
-loginUser = async (req, res) => {
-    try{
-        const { email, password, username } =
-      req.body;
-      const existingUser = await User.findOne({ email: email });
-      const passwordCorrect = await bcrypt.compare(
-        password,
-        existingUser.passwordHash
-      );
-
-      if (!passwordCorrect) {
-        return res.status(401).json({
-          success: false,
-          errorMessage: "Wrong password",
-        });
-      }
-
-      res.status(200).json({
-        success: true,
-        user: {
-            email: existingUser.email,
-            password: existingUser.password,
-            username: existingUser.username,
+        if(password){
+            password = passwordHash;
         }
-    })
+
+        try{
+            console.log("user._id: " + user._id);
+            console.log("req.userId: " + req.userId);
+            const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true}); //update first, then return new user 
+            console.log("SUCCESS updated user");
+            res.status(200).json(updatedUser);
+        }
+        catch(err){
+            console.error(err);
+            res.status(500).send();
+        }
     }
-    catch (err) {
-        console.error(err);
-        res.status(500).send();
-      }
+    else{
+        res.status(403).json({errorMessage: "You can only update your account"});
+    }
 }
 
 
+deleteUser = async (req, res) => {
+    if(req.user.id === req.params.id || req.user.isAdmin){
+        
+        try{
+            console.log("user._id: " + user._id);
+            console.log("req.userId: " + req.userId);
+            const deletedUser = await User.findByIdAndDelete(req.params.id); 
+            console.log("SUCCESS deleted user");
+            res.status(200).json("user has been deleted: " + {deletedUser});
+        }
+        catch(err){
+            console.error(err);
+            res.status(500).send();
+        }
+    }
+    else{
+        res.status(403).json({errorMessage: "You can only delete your account"});
+    }
+}
 
+getUser = async (req, res) => {
+    try{
+        console.log("user._id: " + user._id);
+        console.log("req.userId: " + req.userId);
+        const getUser = await User.findById(req.params.id); 
+        console.log("SUCCESS found user");
+        res.status(200).json("user has been found: " + {getUser});
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).send();
+    } 
+}
+
+getAllUser = async (req, res) => {
+    const query = req.query.new;
+    if(req.user.isAdmin){
+        try{
+            console.log("user._id: " + user._id);
+            console.log("req.userId: " + req.userId);
+            const allUsers = query? await User.find().limit(10): await User.find(); //if query, return last 10, else return all user
+            console.log("SUCCESS all users");
+            res.status(200).json("userS has been found: " + {allUsers});
+        }
+        catch(err){
+            console.error(err);
+            res.status(500).send();
+        }
+    }
+    else{
+        res.status(403).json({errorMessage: "You're not allowed to see all users"});
+    }
+}
+
+getUserStats =  async (req, res) => {
+    const today = new Date();
+    const lastYear = today.setFullYear(today.setFullYear() - 1);
+    const monthsArray = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+    try{
+        const data = await User.aggregate([
+            {
+                $project:{
+                    month: {$month: "$createdAt"}
+                }
+            },{
+                $group:{
+                    _id: "$month",
+                    total: {$sum: 1}
+                }
+            }
+        ]);
+        return res.status(200).json(data);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).send(err);
+    }
+}
 
 module.exports = {
-    registerUser,
-    loginUser
+    updateUser,
+    deleteUser,
+    getUser,
+    getAllUser,
+    getUserStats
 };

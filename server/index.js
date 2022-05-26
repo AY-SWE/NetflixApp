@@ -22,8 +22,11 @@ app.use(express.json())     //in express server, it does not accept json files b
 
 
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
+const authRoute = require('./routes/authRoute')
+app.use('/auth', authRoute)
+
 const userRoute = require('./routes/userRoute')
-app.use('/api', userRoute)
+app.use('/api/users', userRoute)
 
 // INITIALIZE OUR DATABASE OBJECT
 const db = require('./db')

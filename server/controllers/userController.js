@@ -13,6 +13,13 @@ const bcrypt = require("bcryptjs");
 const auth = require("../auth.js/index.js");
 
 updateUser = async (req, res) => {
+    const body = req.body;
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a body to update user',
+        })
+    }
     const {password} = req.body;
     if(req.user.id === req.params.id || req.user.isAdmin){
         const saltRounds = 10;

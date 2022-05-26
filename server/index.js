@@ -28,6 +28,12 @@ app.use('/auth', authRoute)
 const userRoute = require('./routes/userRoute')
 app.use('/api/users', userRoute)
 
+const movieRoute = require('./routes/movieRoute')
+app.use('/api/movies', movieRoute)
+
+// const listRoute = require('./routes/listRoute')
+// app.use('/api/lists', listRoute)
+
 // INITIALIZE OUR DATABASE OBJECT
 const db = require('./db')
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))

@@ -133,13 +133,10 @@ getMovieRandom = async (req, res) => {          // get random movie for the big 
                 {$sample: {size: 1}}                // find all movies, then give us 1 sample 
             ])
         }
-        res
-
         console.log("user._id: " + user._id);
         console.log("req.userId: " + req.userId);
-        const getMovie = await Movie.findById(req.params.id); 
-        console.log("SUCCESS found movie");
-        res.status(200).json("movie has been found: " + {getMovie});
+        console.log("SUCCESS found random movie");
+        res.status(200).json("random movie has been found: " + {movie});
     }
     catch(err){
         console.error(err);
@@ -148,12 +145,11 @@ getMovieRandom = async (req, res) => {          // get random movie for the big 
 }
 
 getAllMovie = async (req, res) => {
-    const query = req.query.new;
     if(req.user.isAdmin){
         try{
             console.log("user._id: " + user._id);
             console.log("req.userId: " + req.userId);
-            const allMovie =await Movie.find(); //if query, return last 10, else return all user
+            const allMovie =await Movie.find(); 
             console.log("SUCCESS get all movies ");
             res.status(200).json(allMovie.reverse());       // return most recent created movies
         }

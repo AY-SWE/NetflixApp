@@ -31,8 +31,8 @@ app.use('/api/users', userRoute)
 const movieRoute = require('./routes/movieRoute')
 app.use('/api/movies', movieRoute)
 
-// const listRoute = require('./routes/listRoute')
-// app.use('/api/lists', listRoute)
+const listRoute = require('./routes/listRoute')
+app.use('/api/lists', listRoute)
 
 // INITIALIZE OUR DATABASE OBJECT
 const db = require('./db')

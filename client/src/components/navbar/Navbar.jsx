@@ -14,7 +14,7 @@ const Navbar = () => {
     };
 
     return(
-        <div className="navbar">
+        <div className={isScrolled? "navbar scrolled": "navbar"}>     
             <div className="container">
                 <div className="left">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" 
@@ -32,7 +32,13 @@ const Navbar = () => {
                     <SearchIcon className = "icons"/>
                     <NotificationsIcon className = "icons"/>
                     <img src="https://www.w3schools.com/images/lamp.jpg" alt=""/>
-                    <ArrowDropDownIcon className = "icons"/>
+                    <div className="profile">
+                        <ArrowDropDownIcon className = "icons"/>
+                        <div className="options">
+                            <span>Settings</span>
+                            <span>Logout</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

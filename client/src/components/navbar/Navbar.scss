@@ -1,7 +1,19 @@
+
 .navbar{
+    width: 100%;
     color: white;
     font-size: 14px;
+    position: fixed; //when scrolling, want navbar to stay
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: linear-gradient(to top, transparent 0%, rgb(0,0,0,0.3) 50%);
+    
+    &.scrolled{
+        background-color: var(--main-color);
+    }
     .container{
+        //background-color: var(--main-color);
         padding: 0px 50px;
         display: flex;
         align-items: center;
@@ -35,6 +47,25 @@
                 border-radius: 5px;
                 object-fit: cover;
                 cursor: pointer;
+            }
+            .profile{
+                .options{
+                    background-color: var(--main-color);
+                    display: none;
+                    border-radius: 5px;
+                    
+                }
+                span{
+                    padding: 7px;
+                     
+                }
+                &:hover{        //hover menu for settings and logout 
+                    .options{
+                        display: flex;
+                        flex-direction: column;
+                        position: absolute;
+                    }
+                }
             }
         }
         

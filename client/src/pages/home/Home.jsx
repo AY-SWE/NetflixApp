@@ -3,7 +3,6 @@ import Featured from "../../components/featured/Featured";
 import "./Home.scss";
 import { useState, useEffect } from "react";
 import axios from "axios"
-import { AcUnit } from "@material-ui/icons";
 
 const Home = ({type}) => {
     const[lists, setLists] = useState([]);
@@ -26,10 +25,10 @@ const Home = ({type}) => {
     return(
         <div className = "home">
             <Navbar/>
-            <Featured type = {type}/>
+            {/* <Featured type = {type}/>
                 {lists.map((list) => (
             <List list = {list} />
-        ))}
+        ))} */}
         </div>
     );
 }

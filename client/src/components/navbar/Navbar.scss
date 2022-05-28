@@ -8,7 +8,7 @@
         justify-content: space-between;
         height: 65px;
 
-        .left{      //for className "left"
+        .left{          
             display: flex;
             align-items: center;
             img{        //netflix logo
@@ -20,6 +20,7 @@
                 cursor: pointer;
             }
         }
+        
         .right{
             display: flex;
             align-items: center;

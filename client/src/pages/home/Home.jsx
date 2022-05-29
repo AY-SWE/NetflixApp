@@ -1,4 +1,5 @@
 import Navbar from "../../components/navbar/Navbar";
+import List from "../../components/list/List";
 import Featured from "../../components/featured/Featured";
 import "./Home.scss";
 import { useState, useEffect } from "react";
@@ -25,7 +26,12 @@ const Home = ({type}) => {
     return(
         <div className = "home">
             <Navbar/>
-            <Featured/>
+            <Featured type="movie"/>
+            <List/>
+            <List/>
+            <List/>
+            <List/>
+            <List/>
         </div>
     );
 }

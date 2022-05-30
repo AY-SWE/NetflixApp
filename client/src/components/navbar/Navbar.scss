@@ -13,7 +13,6 @@
         background-color: var(--main-color);
     }
     .container{
-        //background-color: var(--main-color);
         padding: 0px 50px;
         display: flex;
         align-items: center;
@@ -28,6 +27,7 @@
                 margin-right: 40px;
             }
             span{
+                font-size: 18px;
                 margin-right: 20px;
                 cursor: pointer;
             }

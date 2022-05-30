@@ -31,12 +31,13 @@ export default function Featured({type}) {
         )}
         <img 
             width = "100%"
-            src="https://images.pexels.com/photos/6899260/pexels-photo-6899260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt=""/>
+            src="https://img.thedailybeast.com/image/upload/c_crop,d_placeholder_euli9k,h_1440,w_2560,x_0,y_62/dpr_1.5/c_limit,w_1044/fl_lossy,q_auto/v1651559287/Screen_Shot_2022-05-03_at_12.29.29_AM_x1qnwa" alt=""/>
 
         <div className='info'>
             <img 
             width = "100%"
-            src="https://images.pexels.com/photos/6899260/pexels-photo-6899260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" alt=""
+            
+            src="https://images8.alphacoders.com/103/1030996.png" alt="" 
             />
             <span className='descrip'>
                 Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description
@@ -44,14 +45,12 @@ export default function Featured({type}) {
  
             <div className='buttons'>
                 <button className="play">
-                    <PlayArrowIcon/>
                     <span>
-                        Play
+                        PLAY NOW
                     </span>
                 </button>  
                 <button className="more">
-                    <InfoOutlinedIcon/>
-                    <span>Info</span>
+                    <span>INFO</span>
                 </button>  
             </div>
         </div>    

@@ -23,10 +23,10 @@ function ListItem({index}) {
 
       <div className="itemInfo">
         <div className="icons">
-            <PlayArrowIcon/>
-            <AddIcon/>
-            <ThumbUpOutlinedIcon/>
-            <ThumbDownOutlinedIcon/>
+            <PlayArrowIcon className="icon"/>
+            <AddIcon className="icon"/>
+            <ThumbUpOutlinedIcon className="icon"/>
+            <ThumbDownOutlinedIcon className="icon"/>
         </div>
 
         <div className="itemInfoTop">
@@ -35,7 +35,7 @@ function ListItem({index}) {
             <span>2001</span>
         </div>
         <div className="descrip">
-          Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description
+          Description Description Description Description Description Description Description Description Description
         </div>
         <div className="genre">Action</div>
       </div>  

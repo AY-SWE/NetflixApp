@@ -45,9 +45,16 @@ registerUser = async (req, res) => {
 
 loginUser = async (req, res) => {
     try{
-        const { email, password, username } =
+        const { email, password,  } =
       req.body;
       const existingUser = await User.findOne({ email: email });
+      if (!existingUser) {
+        return res
+            .status(401)
+            .json({
+                errorMessage: "Wrong email provided."
+            })
+    }
       const passwordCorrect = await bcrypt.compare(
         password,
         existingUser.passwordHash
@@ -60,23 +67,19 @@ loginUser = async (req, res) => {
         });
       }
 
-      res.status(200).json({
-        success: true,
-        user: {
-            email: existingUser.email,
-            password: existingUser.password,
-            username: existingUser.username,
-        }
-    })
+      // LOGIN THE USER
+      const token = auth.signToken(existingUser._id, existingUser.isAdmin);
+      //console.log(token);
+
+      const {...info} = existingUser._doc;
+
+      res.status(200).json({...info, token})
     }
     catch (err) {
         console.error(err);
         res.status(500).send();
       }
 }
-
-
-
 
 module.exports = {
     registerUser,

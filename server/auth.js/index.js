@@ -39,9 +39,9 @@ function authManager(){
         }
       };
     
-      signToken = (userId) => {
+      signToken = (userId, isAdmin) => {
         return jwt.sign({
-            userId: userId
+            userId: userId, isAdmin: isAdmin
         }, process.env.JWT_SECRET);
     }
     

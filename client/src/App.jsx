@@ -80,7 +80,7 @@ import Watch from "./pages/watch/Watch"
 const App = () => {
     const user = true;
     return(
-        <Login/>
+        <Register/>
         
     )
 }

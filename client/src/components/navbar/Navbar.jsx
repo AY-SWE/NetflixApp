@@ -30,8 +30,9 @@ const Navbar = () => {
 
                 <div className="right">
                     <SearchIcon className = "icons"/>
+                    <span className = "icons">AY</span>
                     <NotificationsIcon className = "icons"/>
-                    <img src="https://www.w3schools.com/images/lamp.jpg" alt=""/>
+                    <img src="https://fangirlish.com/wp-content/uploads/2022/05/Anya-Smirk-e1652547175479.jpg" alt=""/>
                     <div className="profile">
                         <ArrowDropDownIcon className = "icons"/>
                         <div className="options">

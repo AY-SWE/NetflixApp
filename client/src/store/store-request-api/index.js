@@ -28,7 +28,7 @@
 
 
 // const apis = {
-
+//     getRandomList
 // }
 
 // export default apis

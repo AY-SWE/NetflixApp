@@ -4,6 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 function ListItem({index}) {
@@ -42,6 +43,7 @@ function ListItem({index}) {
       </> //react fragments
         )}
     </div>
+    
   )
 }
 

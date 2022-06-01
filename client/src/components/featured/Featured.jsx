@@ -2,8 +2,30 @@ import React from 'react'
 import "./Featured.scss";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 export default function Featured({type}) {
+    const[content, setContent] = useState({});
+    useEffect(()=>{
+        const getRandomContent = async ()=>{
+            try{
+                const res = await axios.get(`/api/movies/findRandom?type=${type}`,
+                {
+                    headers:{
+                        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Mjk2NGJiMzI2MDQ1NzI5OTRiNDQ1ODciLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NTQxMjI2MDl9.870fT95GBAf9umEsxzDWvXZB4apC8I3TejTcp8Cb9Ag"
+                    },
+                }
+                )
+                setContent(res.data)
+           }catch(err){
+               console.log(err);
+           }
+        }
+        getRandomContent();
+    },[type])
   return (
     <div className='featured'>
         {type && (

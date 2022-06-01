@@ -9,7 +9,7 @@
 const Movie = require('../models/Movie')
 //const CryptoJs = require("crypto-js");
 const bcrypt = require("bcryptjs");
-const auth = require("../auth.js/index.js");
+const auth = require("../auth");
 
 createMovie = async (req, res) => {
     const body = req.body;
@@ -104,8 +104,6 @@ deleteMovie = async (req, res) => {
 
 getMovie = async (req, res) => {
     try{
-        console.log("user._id: " + user._id);
-        console.log("req.userId: " + req.userId);
         const getMovie = await Movie.findById(req.params.id); 
         console.log("SUCCESS found movie");
         res.status(200).json("movie has been found: " + {getMovie});
@@ -133,10 +131,8 @@ getMovieRandom = async (req, res) => {          // get random movie for the big 
                 {$sample: {size: 1}}                // find all movies, then give us 1 sample 
             ])
         }
-        console.log("user._id: " + user._id);
-        console.log("req.userId: " + req.userId);
         console.log("SUCCESS found random movie");
-        res.status(200).json("random movie has been found: " + {movie});
+        res.status(200).json(movie);
     }
     catch(err){
         console.error(err);
@@ -147,8 +143,6 @@ getMovieRandom = async (req, res) => {          // get random movie for the big 
 getAllMovie = async (req, res) => {
     if(req.user.isAdmin){
         try{
-            console.log("user._id: " + user._id);
-            console.log("req.userId: " + req.userId);
             const allMovie =await Movie.find(); 
             console.log("SUCCESS get all movies ");
             res.status(200).json(allMovie.reverse());       // return most recent created movies

@@ -13,6 +13,7 @@ const MovieSchema = new Schema(
         img: { type: String},
         imgTitle: { type: String},
         imgBackGround: { type: String},
+        trailer:{type: String},
         video: { type: String},
         year: { type: String},
         genre: { type: String},

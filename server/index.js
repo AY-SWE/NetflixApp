@@ -9,6 +9,7 @@
 // THESE ARE NODE APIs WE WISH TO USE
 const express = require('express')
 const cors = require('cors')
+const cookieParser = require('cookie-parser')
 
 // CREATE OUR SERVER
 const app = express()    //app is our express object
@@ -19,7 +20,7 @@ app.use(express.json())
 
 // SETUP THE MIDDLEWARE
 app.use(express.json())     //in express server, it does not accept json files by default, so use this to resolve it
-
+app.use(cookieParser())
 
 // SETUP OUR OWN ROUTERS AS MIDDLEWARE
 const authRoute = require('./routes/authRoute')

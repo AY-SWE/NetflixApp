@@ -10,7 +10,7 @@
 const User = require('../models/User')
 //const CryptoJs = require("crypto-js");
 const bcrypt = require("bcryptjs");
-const auth = require("../auth.js/index.js");
+const auth = require("../auth");
 
 registerUser = async (req, res) => {
     try{
@@ -28,14 +28,30 @@ registerUser = async (req, res) => {
           });
           
         const savedUser = await newUser.save();     //mongoose will save user into our db
-        res.status(200).json({
-            success: true,
-            user: {
-                email: savedUser.email,
-                password: savedUser.passwordHash,
-                username: savedUser.username,
-            }
+
+        // LOGIN THE USER
+      const token = auth.signToken(savedUser._id, savedUser.isAdmin);
+      const {...info} = savedUser._doc;
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: true
+        }).status(200).json({
+          success: true,
+          user: {
+              email: savedUser.email,
+              password: savedUser.passwordHash,
+              username: savedUser.username,
+          }
         })
+        // res.status(200).json({
+        //     success: true,
+        //     user: {
+        //         email: savedUser.email,
+        //         password: savedUser.passwordHash,
+        //         username: savedUser.username,
+        //     }
+        // })
     }
     catch (err) {
         console.error(err);
@@ -69,11 +85,19 @@ loginUser = async (req, res) => {
 
       // LOGIN THE USER
       const token = auth.signToken(existingUser._id, existingUser.isAdmin);
-      //console.log(token);
-
       const {...info} = existingUser._doc;
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: true
+        }).status(200).json({...info, token})
 
-      res.status(200).json({...info, token})
+      // const token = auth.signToken(existingUser._id, existingUser.isAdmin);
+      // //console.log(token);
+
+      // const {...info} = existingUser._doc;
+
+      // res.status(200).json({...info, token})
     }
     catch (err) {
         console.error(err);

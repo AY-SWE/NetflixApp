@@ -1,4 +1,4 @@
-const auth = require("../auth.js");     //moviesController no need for authentication 
+const auth = require("../auth"); //moviesController no need for authentication 
 const express = require("express");
 const router = express.Router();        // express library's Router method
 const movieController = require("../controllers/movieController.js");

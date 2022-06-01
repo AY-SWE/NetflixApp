@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Router} from 'react-router-dom'
 import App from './App';
 import {createMemoryHistory} from 'history';
+import { AuthContextProvider } from './auth/authContext';
+
 
 //import { AuthContextProvider } from './auth';
 /*
@@ -18,8 +20,10 @@ const history = createMemoryHistory();
 ReactDOM.render(
   <React.StrictMode>  
       <BrowserRouter location={history.location} navigator={history}>
-        
+        <AuthContextProvider>
         <App />
+        </AuthContextProvider>
+        
       </BrowserRouter>    
 
   </React.StrictMode>,

@@ -21,7 +21,7 @@ import Watch from "./pages/watch/Watch"
 
 
 const App = () => {
-    const user = true;
+    const user = false;
     return(
         <Routes>
                     <Route exact path="/" element={user? <Home/>: <Navigate to="/register"/>}/>

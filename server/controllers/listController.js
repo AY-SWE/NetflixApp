@@ -9,7 +9,7 @@
 const List = require('../models/List')
 //const CryptoJs = require("crypto-js");
 const bcrypt = require("bcryptjs");
-const auth = require("../auth.js/index.js");
+const auth = require("../auth");
 
 createList = async (req, res) => {
     const body = req.body;
@@ -102,7 +102,7 @@ getListRandom = async (req, res) => {
             ])
         }
         console.log("SUCCESS found lists");
-        res.status(200).json("lists has been found: " + {list});
+        res.status(200).json(list);
     }
     catch(err){
         console.error(err);

@@ -1,8 +1,7 @@
 
 import './App.scss';
 import { React } from 'react';
-import { Redirect} from 'react-router-dom'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { Navigate ,Routes, Route } from "react-router-dom"
 
 import Home from "./pages/home/Home"
 import Register from "./pages/register/Register"
@@ -25,10 +24,15 @@ const App = () => {
     const user = true;
     return(
         <Routes>
-                    <Route exact path="/" element={<Home/>}/>
-                    <Route path="/series" element={<Home type="series"/>} />
-                    <Route path="/movies" element={<Home type="movies"/>} />
-                    <Route path="/watch" element={<Watch/>} />
+                    <Route exact path="/" element={user? <Home/>: <Navigate to="/register"/>}/>
+                    <Route path="/register" element={!user? <Register/>: <Navigate to="/"/>} />
+                    <Route path="/login" element={!user? <Login/>: <Navigate to="/"/>} />
+                    {user && ( <>
+                        <Route path="/series" element={<Home type="series"/>} />
+                        <Route path="/movies" element={<Home type="movies"/>} />
+                        <Route path="/watch" element={<Watch/>} />  </>
+                    )}
+                    
             
                 </Routes>        
     )

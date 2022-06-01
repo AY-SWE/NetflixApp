@@ -3,25 +3,24 @@ const jwt = require("jsonwebtoken");
 
 function authManager(){
     verify = function (req, res, next) {
-        try {
-          const token = req.cookies.token;
-          if (!token) {
-            return res.status(401).json({
-              loggedIn: false,
-              user: null,
-              errorMessage: "You're not Unauthorized",
-            });
-          }
-    
-          const verified = jwt.verify(token, process.env.JWT_SECRET);
-          req.userId = verified.userId;
-    
-          next();   //go to actual router
-        } catch (err) {
-          console.error(err);
-          return res.status(401).json({
-            errorMessage: "Unauthorized",
+        const authHeader = req.headers.token;
+        if(authHeader){
+          const token = authHeader.split(" ")[1];
+
+          jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+              if(err){
+                res.status(403).json({
+                  loggedIn: false,
+                  user: null,
+                  errorMessage: "Unauthorized, token invalid"
+                });
+              }
+              req.user = user;
+              next(); // go to actual router
           });
+        }
+        else{
+          return res.status(401).json("You are not authorized, authManager.verify ");
         }
       };
     

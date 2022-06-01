@@ -21,8 +21,14 @@ const Navbar = () => {
                     alt=""/>
                     
                     <span>Homepage</span>
-                    <span>Movies</span>
-                    <span>TV Shows</span>
+                    <Link to = "/movies" className="link">
+                        
+                        <span>Movies</span>
+                    </Link>
+                    <Link to = "/series" className="link">
+                        <span>TV Shows</span>
+                    </Link>
+                    
                     <span>New and Popular</span>
                     <span>My list</span>
                 </div>

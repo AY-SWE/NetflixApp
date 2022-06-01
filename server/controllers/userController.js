@@ -39,7 +39,7 @@ updateUser = async (req, res) => {
         }
         catch(err){
             console.error(err);
-            res.status(500).send();
+            res.status(500).send({errorMessage: req.params.id});
         }
     }
     else{
@@ -72,13 +72,14 @@ getUser = async (req, res) => {
     try{
         console.log("user._id: " + user._id);
         console.log("req.userId: " + req.userId);
-        const getUser = await User.findById(req.params.id); 
+        var id = new mongoose.Types.ObjectId(req.params.id)
+        const getUser = await User.findById(id); 
         console.log("SUCCESS found user");
         res.status(200).json("user has been found: " + {getUser});
     }
     catch(err){
         console.error(err);
-        res.status(500).send();
+        res.status(500).send({errorMessage: req.params.id});
     } 
 }
 

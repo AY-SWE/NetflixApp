@@ -4,7 +4,7 @@ const router = express.Router();        // express library's Router method
 const movieController = require("../controllers/movieController.js");
 
 //CREATE
-router.post("/", auth.verify, movieController.createMovie)
+router.post("/", movieController.createMovie)
 //UPDATE
 router.put("/:id", auth.verify, movieController.updateMovie)
 //DELETE

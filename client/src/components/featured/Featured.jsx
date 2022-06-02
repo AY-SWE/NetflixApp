@@ -64,12 +64,14 @@ export default function Featured({type}) {
  
             <div className='buttons'>
                 <button className="play">
+                    <PlayArrowIcon/>
                     <span>
-                        PLAY NOW
+                        Play
                     </span>
                 </button>  
                 <button className="more">
-                    <span>MORE INFO</span>
+                    <InfoOutlinedIcon/>
+                    <span>Info</span>
                 </button>  
             </div>
         </div>    

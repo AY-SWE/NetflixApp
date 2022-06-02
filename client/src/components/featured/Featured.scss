@@ -62,23 +62,17 @@
                 margin-right: 10px;
                 cursor: pointer;
                 &.play{
-                    background-color: rgb(168, 16, 16);
+                    background-color: white;
                     color: var(--main-color);
-
-                    span{
-                        align-items: center;
-                        color: white;
-                    }
 
                 }
                 &.more{
-                    background-color: lightgray;
+                    background-color: gray;
                     color: var(--main-color);
+                }
 
-                    span{
-                        align-items: center;
-                        color: red;
-                    }
+                span{
+                    margin-left: 5px;
                 }
 
                 

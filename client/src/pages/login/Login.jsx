@@ -1,5 +1,5 @@
 import "./Login.scss";
-import {useState, useRef, useContext} from "react";
+import {useState, useContext} from "react";
 import { AuthContext } from "../../auth/authContext";
 import {loginUser} from "../../auth/auth-request-api"
 

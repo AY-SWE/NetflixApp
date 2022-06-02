@@ -1,17 +1,24 @@
-import {useState} from "react";
+import {useState, useContext} from "react";
 import "./Navbar.scss";
 import {Link} from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { AuthContext } from "../../auth/authContext";
+import { logoutUser } from "../../auth/auth-request-api";
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
-
+    const {isFetching, dispatch} = useContext(AuthContext);
     window.onscroll = () => {
         setIsScrolled(window.pageYOffset === 0? false: true);
         return () => (window.onscroll = null);
     };
+
+    const handleLogout = (e) => {
+        e.preventDefault(); //dont wannt refresh page
+        logoutUser(dispatch);
+      }
 
     return(
         <div className={isScrolled? "navbar scrolled": "navbar"}>     
@@ -46,7 +53,7 @@ const Navbar = () => {
                         <ArrowDropDownIcon className = "icons"/>
                         <div className="options">
                             <span>Settings</span>
-                            <span>Logout</span>
+                            <span onClick={handleLogout} disabled={isFetching}>Logout</span>
                         </div>
                     </div>
                 </div>

@@ -105,7 +105,17 @@ loginUser = async (req, res) => {
       }
 }
 
+logoutUser = async (req, res) => {
+  res.cookie("token", "", {
+      httpOnly: true,
+      expires: new Date(0),
+      secure: true,
+      sameSite: "none"
+  }).send();
+}
+
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
 };

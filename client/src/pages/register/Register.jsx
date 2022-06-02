@@ -1,17 +1,37 @@
 import "./Register.scss";
 import {useState, useRef} from "react";
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
+
+axios.defaults.withCredentials = false;
+
+const api = axios.create({
+    baseURL: 'http://localhost:8800/auth',
+})
 
 function Register() {
   const[email, setEmail] = useState("");
   const[password, setPassword] = useState("");
+  const[username, setUsername] = useState("");
   const emailRef = useRef();
   const passRef = useRef();
+  const usernameRef = useRef();
+  const navigate = useNavigate();
   
   const handleStart = () =>{
     setEmail(emailRef.current.value);
   }
-  const handleFinish = () =>{
-    setEmail(passRef.current.value);
+  const handleFinish = async (e) =>{
+    e.preventDefault();
+    setPassword(passRef.current.value);
+    setUsername(usernameRef.current.value);
+    try{
+      await api.post("/register", {email, username,password});
+      navigate("/login")
+    }
+    catch(err){
+
+    }
   }
 
   
@@ -30,12 +50,13 @@ function Register() {
             <p>Ready to watch? Enter your email to create orart paid membership</p>
             
             {!email ? (
-            <div className="input"> st
+            <div className="input"> 
                 <input type="email" placeholder="Email address" ref={emailRef}/>
                 <button className="registerButton" onClick={handleStart}>Get Started</button>
             </div>
             ) : (
-            <form className="input"> st
+            <form className="input"> 
+            <input type="username" placeholder="Username" ref={usernameRef}/>
               <input type="password" placeholder="Password" ref={passRef}/>
               <button className="registerButton" onClick={handleFinish}>Start</button>
             </form>
